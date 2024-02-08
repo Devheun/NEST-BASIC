@@ -7,6 +7,7 @@ import { UserRepository } from './user.repository';
 import { JwtModule } from '@nestjs/jwt';
 import * as dotenv from 'dotenv';
 import { PassportModule } from '@nestjs/passport';
+import { JwtStrategy } from './jwt.strategy';
 dotenv.config();
 
 
@@ -21,6 +22,7 @@ dotenv.config();
     }),
     TypeOrmModule.forFeature([User])],
   controllers: [AuthController],
-  providers: [AuthService, UserRepository]
+  providers: [AuthService, UserRepository,JwtStrategy],
+  exports : [JwtStrategy,PassportModule] // 다른 모듈에서 사용할 때
 })
 export class AuthModule {}
