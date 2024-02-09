@@ -38,8 +38,8 @@ export class BoardsService {
     return found;
   }
 
-  async deleteBoard(id: string): Promise<void> {
-    const result = await this.boardRepository.delete(id); //typeORM delete method -> 있으면 삭제, 없으면 아무것도 X
+  async deleteBoard(id: number, user : User): Promise<void> {
+    const result = await this.boardRepository.delete({id,user}); //typeORM delete method -> 있으면 삭제, 없으면 아무것도 X
     
     if (result.affected === 0) {
       throw new NotFoundException(`Can't find Board with id ${id}`);
